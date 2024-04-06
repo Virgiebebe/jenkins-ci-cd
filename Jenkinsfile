@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       agent {
-        label 'node1'
+        label 'slave-build'
       }
       steps {
         echo 'Building the application'
@@ -13,7 +13,7 @@ pipeline {
     }
     stage('Test') {
       agent {
-        label 'node1'
+        label 'slave-build'
       }
     steps {
       echo 'Running tests'
@@ -24,7 +24,7 @@ pipeline {
     }
     stage('Deploy') {
       agent {
-        label 'node2'
+        label 'slave-tomcat'
       }
       steps {
         echo 'Deploying the application'
@@ -43,7 +43,7 @@ pipeline {
             emailext (
                 body: "Check console output at $BUILD_URL to see results,",           
                 subject: "Jenkins Build ${currentBuild.currentResult} jenkins-ci-cd",
-                to: "sam883marc@gmail.com, marcussamuel883@gmail.com", 
+                to: "virg.ansah@gmail.com", 
                 mimeType: 'text/html'
             )
         }
